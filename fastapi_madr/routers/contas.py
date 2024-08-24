@@ -8,6 +8,7 @@ from sqlalchemy import select
 from fastapi_madr.schemas import AccountPublic, AccountSchema
 from fastapi_madr.models import Account
 from fastapi_madr.database import get_session
+from fastapi_madr.utils import sanitize
 
 router = APIRouter(prefix='/contas', tags=['contas'])
 
@@ -36,8 +37,9 @@ def create_account(
                 detail='Username or email already exists'
             )
 
+    
     db_user = Account(
-        username = account.username,
+        username = sanitize(account.username),
         email = account.email,
         password = account.password
     )

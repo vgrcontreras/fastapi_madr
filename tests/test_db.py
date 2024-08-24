@@ -14,6 +14,8 @@ def test_create_account(session):
     session.commit()
     session.refresh(new_account)
 
-    account = session.scalar(select(Account).where(Account.username == 'victor'))
+    account = session.scalar(
+        select(Account).where(Account.username == 'victor')
+    )
 
     assert account.username == 'victor'

@@ -2,14 +2,14 @@ from http import HTTPStatus
 
 from fastapi import APIRouter, Depends
 from fastapi.exceptions import HTTPException
-from sqlalchemy.orm import Session
 from sqlalchemy import select
+from sqlalchemy.orm import Session
 
-from fastapi_madr.schemas import AccountPublic, AccountSchema
-from fastapi_madr.models import Account
 from fastapi_madr.database import get_session
-from fastapi_madr.utils import sanitize
+from fastapi_madr.models import Account
+from fastapi_madr.schemas import AccountPublic, AccountSchema
 from fastapi_madr.security import get_password_hash
+from fastapi_madr.utils import sanitize
 
 router = APIRouter(prefix='/contas', tags=['contas'])
 
@@ -17,11 +17,12 @@ router = APIRouter(prefix='/contas', tags=['contas'])
 @router.post('/', status_code=HTTPStatus.CREATED, response_model=AccountPublic)
 def create_account(
     account: AccountSchema,
-    session: Session = Depends(get_session)   
+    session: Session = Depends(get_session)
 ):
     db_user = session.scalar(
         select(Account).where(
-            (Account.username == account.username) | (Account.email == account.email)
+            (Account.username == account.username)
+            | (Account.email == account.email)
         )
     )
 
@@ -38,11 +39,10 @@ def create_account(
                 detail='conta já consta no MADR'
             )
 
-    
     db_user = Account(
-        username = sanitize(account.username),
-        email = account.email,
-        password = get_password_hash(account.password)
+        username=sanitize(account.username),
+        email=account.email,
+        password=get_password_hash(account.password)
     )
 
     session.add(db_user)
@@ -50,6 +50,7 @@ def create_account(
     session.refresh(db_user)
 
     return db_user
+
 
 @router.put('/')
 def update_account():

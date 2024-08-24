@@ -9,6 +9,7 @@ from fastapi_madr.schemas import AccountPublic, AccountSchema
 from fastapi_madr.models import Account
 from fastapi_madr.database import get_session
 from fastapi_madr.utils import sanitize
+from fastapi_madr.security import get_password_hash
 
 router = APIRouter(prefix='/contas', tags=['contas'])
 
@@ -28,20 +29,20 @@ def create_account(
         if db_user.email == account.email:
             raise HTTPException(
                 status_code=HTTPStatus.CONFLICT,
-                detail='Username or email already exists'
+                detail='conta já consta no MADR'
             )
 
         if db_user.username == account.username:
             raise HTTPException(
                 status_code=HTTPStatus.CONFLICT,
-                detail='Username or email already exists'
+                detail='conta já consta no MADR'
             )
 
     
     db_user = Account(
         username = sanitize(account.username),
         email = account.email,
-        password = account.password
+        password = get_password_hash(account.password)
     )
 
     session.add(db_user)

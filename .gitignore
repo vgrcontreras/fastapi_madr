@@ -1,6 +1,7 @@
 # Created by https://www.toptal.com/developers/gitignore/api/python
 # Edit at https://www.toNew .gitignore file generated for python.
 hon
+database.db
 
 ### Python ###
 # Byte-compiled / optimized / DLL files

@@ -5,23 +5,26 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    steps:
-      - name: Copiar os arquivos do diretório
-        uses: actions/checkout@v4
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      ALGORITHM: ${{ secrets.ALGORITHM }}
+      ACCESS_TOKEN_EXPIRE_MINUTES: ${{ secrets.ACCESS_TOKEN_EXPIRE_MINUTES }}
 
-      - name: Instalar o Python
-        uses: actions/setup-python@v5
+    steps:
+      - name: Copia os arquivos do repositório
+        uses: actions/checkout@v3
+
+      - name: Instalar o python
+        uses: actions/setup-python@v4
         with:
           python-version: '3.12'
 
       - name: Instalar o poetry
         run: pipx install poetry
 
-      - name: Add Poetry to PATH
-        run: echo "$HOME/.local/bin" >> $GITHUB_PATH
-
-      - name: Instalando as dependências do projeto
-        run: poetry install --no-root
+      - name: Instalar dependências
+        run: poetry install
 
       - name: Executar testes
         run: poetry run task test

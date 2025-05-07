@@ -5,7 +5,7 @@ from sqlalchemy import pool
 
 from alembic import context
 
-from fastapi_madr.settings import Settings
+from fastapi_madr.core.settings import Settings
 from fastapi_madr.models import table_registry
 
 # this is the Alembic Config object, which provides

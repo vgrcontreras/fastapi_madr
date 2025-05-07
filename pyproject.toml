@@ -13,6 +13,8 @@ pydantic = {extras = ["email"], version = "^2.8.2"}
 pydantic-settings = "^2.4.0"
 alembic = "^1.13.2"
 pwdlib = {extras = ["argon2"], version = "^0.2.1"}
+pyjwt = "^2.10.1"
+tzdata = "^2025.2"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -41,7 +43,7 @@ addopts = '-p no:warnings'
 [tool.taskipy.tasks]
 lint = 'ruff check . ; ruff check . --diff'
 format = 'ruff check . --fix ; ruff format .'
-run = 'fastapi dev fastapi_madr/app.py'
+run = 'fastapi dev fastapi_madr/api/app.py'
 pre_test = 'task lint'
 test = 'pytest -s -x --cov=fastapi_madr -vv'
 post_test = 'coverage html'

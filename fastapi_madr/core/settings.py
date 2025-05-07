@@ -6,4 +6,10 @@ class Settings(BaseSettings):
         env_file='.env', env_file_encoding='utf-8'
     )
 
-    DATABASE_URL: str
+    DATABASE_URL: str = 'sqlite:///./dev.db'
+    ALGORITHM: str
+    ACCESS_TOKEN_EXPIRE_MINUTES: int
+    SECRET_KEY: str
+
+
+settings = Settings()

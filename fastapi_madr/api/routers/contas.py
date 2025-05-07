@@ -1,11 +1,10 @@
 from http import HTTPStatus
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter
 from fastapi.exceptions import HTTPException
 from sqlalchemy import select
-from sqlalchemy.orm import Session
 
-from fastapi_madr.api.dependencies import SessionDep, get_session
+from fastapi_madr.api.dependencies import SessionDep
 from fastapi_madr.models import Account
 from fastapi_madr.schemas.contas import AccountPublic, AccountSchema
 from fastapi_madr.security import get_password_hash

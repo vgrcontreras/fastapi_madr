@@ -1,15 +1,17 @@
-from fastapi import APIRouter, Depends
 from http import HTTPStatus
-from fastapi_madr.api.dependencies import SessionDep
-from fastapi.security import OAuth2PasswordRequestForm
-from fastapi_madr.schemas.base import Token
-from sqlalchemy import select
-from fastapi.exceptions import HTTPException
-from fastapi_madr.security import create_access_token, get_password_verify
-from fastapi_madr.models import Account
 
+from fastapi import APIRouter, Depends
+from fastapi.exceptions import HTTPException
+from fastapi.security import OAuth2PasswordRequestForm
+from sqlalchemy import select
+
+from fastapi_madr.api.dependencies import SessionDep
+from fastapi_madr.models import Account
+from fastapi_madr.schemas.base import Token
+from fastapi_madr.security import create_access_token, get_password_verify
 
 router = APIRouter()
+
 
 @router.post('/', status_code=HTTPStatus.OK, response_model=Token)
 def login_for_access_token(

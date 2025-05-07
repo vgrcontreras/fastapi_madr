@@ -4,7 +4,7 @@ from sqlalchemy import StaticPool, create_engine
 from sqlalchemy.orm import Session
 
 from fastapi_madr.api.app import app
-from fastapi_madr.core.database import get_session
+from fastapi_madr.api.dependencies import get_session
 from fastapi_madr.models import table_registry
 
 
